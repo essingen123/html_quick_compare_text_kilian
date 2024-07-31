@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="diff.min.js"></script>
+    <script src="prism.min.js"></script>
+    <link rel="stylesheet" href="prism-synthwave84.css">
+<style>
+body {
+margin: 0;
+padding: 0;
+font-size: 12px !important;
+font-family: 'Menlo', monospace;
+}
+
+.textarea-container, #comparison {
+display: flex;
+flex-direction: row;
+min-height: 280px;
+}
+
+.old, .new, .diff {
+padding: 10px;
+overflow-y: auto;
+flex: 1;
+min-height: 420px;
+box-sizing: border-box;
+}
+
+.old, .new {
+width: 30vw;
+}
+
+.diff {
+width: calc(100% - 60vw);
+}
+
+textarea {
+min-height: 280px;
+width: 100%;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+padding: 10px;
+box-sizing: border-box;
+}
+
+pre {
+white-space: pre;
+}
+
+.added {
+background-color: #dfd;
+}
+
+.removed {
+background-color: #fdd;
+}
+
+.unchanged {
+background-color: #fff;
+}
+</style>
+</head>
+<body>
+<div class="textarea-container">
+<textarea id="text1" oninput="compareText()">
+qqq
+aaa
+bbb
+ccc
+zzz
+</textarea>
+<textarea id="text2" oninput="compareText()">
+aaa
+eee
+ccc
+</textarea>
+</div>
+<div id="comparison">
+<pre class="old"></pre>
+<pre class="diff"></pre>
+<pre class="new"></pre>
+</div>
+
+<script>
+function compareText() {
+const text1 = document.getElementById('text1').value.trim();
+const text2 = document.getElementById('text2').value.trim();
+const oldDiv = document.querySelector('.old');
+const diffDiv = document.querySelector('.diff');
+const newDiv = document.querySelector('.new');
+
+oldDiv.innerHTML = '';
+diffDiv.innerHTML = '';
+newDiv.innerHTML = '';
+
+const oneLines = text1.split('\n');
+const twoLines = text2.split('\n');
+const maxLines = Math.max(oneLines.length, twoLines.length);
+const diffLines = [];
+
+for (let i = 0; i < maxLines; i++) {
+if (i < oneLines.length && i < twoLines.length && oneLines[i] === twoLines[i]) {
+diffLines.push(oneLines[i]);
+} else if (i < oneLines.length) {
+diffLines.push(`<span class="removed" style="color:red">${oneLines[i]}</span>`);
+} else {
+diffLines.push(`<span class="added" style="color:green">${twoLines[i]}</span>`);
+}
+}
+
+diffDiv.innerHTML = diffLines.join('\n');
+oldDiv.innerHTML = text1;
+newDiv.innerHTML = text2;
+}
+compareText(); // call the function once to display the initial differences
+</script>
+</body>
+</html>
