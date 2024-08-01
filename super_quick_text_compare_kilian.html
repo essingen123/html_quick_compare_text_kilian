@@ -2,15 +2,16 @@
 <html>
 <head>
   <link rel="stylesheet" href="diff2html.min.css">
-  <link rel="stylesheet" href="kilian_extra_css.css">
   <script src="diff2html-ui.min.js"></script>
   <script src="diff.min.js"></script>
   <script src="prism.min.js"></script>
+  <link rel="stylesheet" href="kilian_extra_css.css">
   <link rel="stylesheet" href="prism-synthwave84.css">
   <script src="hogan.min.js"></script>
 
 </head>
 <body>
+  <img src="code_diff_unicorn.webp" style="width: 5%; position: absolute; left: 20px; top: 10px;" />
   <h2>CODE DIFF</h2>
   <div class="textarea-container">
     <textarea id="text1" spellcheck="false">Code1_JUST_PaStE_it_iN
@@ -120,5 +121,106 @@ text2Element.addEventListener('input', compareText);
 
 compareText(); // call the function once to display the initial differences
 </script>
+
+
+<link rel="stylesheet" href="animate.min.css">
+<script>
+  const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+        Array.prototype.forEach.call(mutation.addedNodes, node => {
+          if (node.nodeType === 1) { // Only consider element nodes
+            const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+            node.classList.add(randomAnimation);
+          }
+        });
+      }
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+
+
+
+inputField = document.getElementById('text1');
+
+inputField.addEventListener('input', () => {
+  document.body.classList.add('shake');
+  setTimeout(() => {
+    document.body.classList.remove('shake');
+  }, 1000);
+});
+
+
+</script>
+<style>
+  .pixel {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: #fff;
+  transform: scale(0);
+  transition: transform 0.5s;
+}
+
+.pixel.active {
+  transform: scale(1);
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-5px,30px);
+  }
+  40% {
+    transform: translate(5px, 0);
+  }
+  60% {
+    transform: translate(-5px, 0);
+  }
+  80% {
+    transform: translate(5px, 23px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 32px);
+  }
+  20% {
+    transform: translate(-5px, 0);
+  }
+  40% {
+    transform: translate(5px, 0);
+  }
+  60% {
+    transform: translate(-5px, 0);
+  }
+  80% {
+    transform: translate(5px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+</style>
 </body>
 </html>

@@ -1,6 +1,16 @@
 /* Global styles */
 
 
+
+h2 {
+  opacity: 0.51; letter-spacing:2em; 
+  padding: 0 22rem !important; 
+  color: #99998877;
+}
+
+#line-diff, #word-diff, #char-diff {
+  white-space: pre;
+}
 * {
     box-sizing: border-box;
     padding: 2px;
@@ -575,12 +585,4 @@ div {
   overflow: auto;
   white-space: nowrap;
 
-}
-
-h2{
-  opacity: 0.51; letter-spacing:2em; padding: 0 8rem;color: #99998877;
-}
-
-#line-diff, #word-diff, #char-diff {
-  white-space: pre;
 }
