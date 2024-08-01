@@ -1,11 +1,11 @@
-'''
+
 # Quick Code Diff Compare Tool 🎉
 
 A lightweight, local code diff compare tool that helps you quickly compare two pieces of code, with a dash of magic ✨.
 
 Tags: Code Diff, Local Development, Automation, Quick Wins
 
-<!-- ![Code Diff Unicorn](code_diff_unicorn.webp) -->
+![Code Diff Unicorn](code_diff_unicorn.webp)
 
 ## What is Quick Code Diff? 🤔
 Quick Code Diff is a tool that helps you quickly compare two pieces of code, highlighting added, removed, and unchanged lines, with a focus on simplicity and ease of use.
@@ -33,4 +33,3 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## Acknowledgments 🙏
 This project uses the Diff library, which is licensed under the MIT License.
-'''
