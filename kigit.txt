@@ -14,7 +14,7 @@ set303b=html_quick_compare_text_kilian
 set303c=y
 
 # 📄 auto generate HTML page, y for yes and n for no
-set303d=y
+set303d=n
 
 # 🗑️ tags, separated by commas
 set303e=Code Diff, Local Development, Automation, Quick Wins, Batteries Included, un-PEP8-perhaps
