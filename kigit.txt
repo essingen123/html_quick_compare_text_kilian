@@ -38,8 +38,3 @@ set303k=Automated ~date ~data
 set303l=y
 
 # DONT EDIT OUT THIS LAST LINE
-set303h=
-set303h=
-set303h=
-set303h=
-set303h=
