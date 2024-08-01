@@ -26,7 +26,7 @@ set303f=A lightweight, local code diff compare tool that helps you quickly compa
 set303g=
 
 # 🎉 GithubPartywebpageLink
-set303h=index.html
+set303h=
 
 # 🌳 Branch to commit to, 'main' or a new branch name
 set303j=master
