@@ -1,23 +1,36 @@
-# html_quick_compare_text_kilian
+'''
+# Quick Code Diff Compare Tool 🎉
 
-A work in progress with automation testing for Git leveraging python, bash etc
+A lightweight, local code diff compare tool that helps you quickly compare two pieces of code, with a dash of magic ✨.
 
-Tags: Git, Bash, Automation, Automagic, un-PEP8-perhaps
+Tags: Code Diff, Local Development, Automation, Quick Wins
 
-![Auto Git Unicorn Moose Feather Light Windmill](auto_git_unicorn_moose_feather_light_windmill_of_mtlmbsm.webp)
+<!-- ![Code Diff Unicorn](code_diff_unicorn.webp) -->
 
-## What is MTLMBSM? 🤔
-MTLMBSM stands for "Meh To Less Meh But Still Meh," a humorous way to describe how 
-this script simplifies and automates aspects of version control and GitHub interactions; which also serves as a filter; since if this is yet not automagically enforcing a smile near the observer, this script may not be suitable at all; almost like an admin requirement certification wise thing. 
+## What is Quick Code Diff? 🤔
+Quick Code Diff is a tool that helps you quickly compare two pieces of code, highlighting added, removed, and unchanged lines, with a focus on simplicity and ease of use.
 
-## Features 🎉
-- Automagic operation (YES, PREFERABLY even if there's an error or missing configuration, in authentic unicorn moose manners! )
-- Flexible configuration through kigit.txt
-- Repository creation & management
-- Automatic README.md & .gitignore generation etc intended
-- (Yet to be more arty) web page generative actions from README.md etc
-- Customizable commit messages (-ish)
-- And much more, and perhaps even quite differently so (not so awesome) when LLMs misinterpret the "enhance" statement!
+## Features 🎊
+- Compare two pieces of code side-by-side, with added lines in green, removed lines in red, and unchanged lines in black
+- Preserves newline characters, because we care about the little things
+- Runs locally, no server dependencies, because we love freedom
+- Highlights added, removed, and unchanged lines, because we love rainbows
+
+## Getting Started 🚀
+1. Save this repository to your local machine
+2. Run `python start_server.py` to start the server
+3. Open a web browser and navigate to `http://localhost:<port>` (replace `<port>` with the port number displayed in the terminal)
+4. Paste your code into the two textareas and click "Compare" to see the diff
+
+## How it Works 🧙‍♂️
+The tool uses the Diff library to compute the differences between the two pieces of code. The differences are then highlighted in the output, with added lines in green, removed lines in red, and unchanged lines in black.
 
 ## License 📜
-This project is licensed under a license not written here yet.. but sure, this has probably taken out a 100 hours of LLM discoteque ettiqeuette etc.
+This project is licensed under the MIT License. See `LICENSE` for details.
+
+## Contributing 🤝
+Contributions are welcome! If you'd like to contribute to this project, please fork this repository and submit a pull request.
+
+## Acknowledgments 🙏
+This project uses the Diff library, which is licensed under the MIT License.
+'''
