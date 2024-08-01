@@ -1,8 +1,5 @@
-
-# Quick Code Diff Compare Tool 🎉
-
 ![Code Diff Unicorn](code_diff_unicorn.webp)
-
+# Quick Code Diff Compare Tool 🎉
 A lightweight, local code diff compare tool that helps you quickly compare two pieces of code, with a dash of magic ✨.
 
 Tags: Code Diff, Local Development, Automation, Quick Wins
