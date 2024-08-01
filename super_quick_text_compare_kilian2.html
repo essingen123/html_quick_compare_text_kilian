@@ -63,17 +63,20 @@ background-color: #fff;
 </head>
 <body>
 <div class="textarea-container">
-<textarea id="text1" oninput="compareText()">
-qqq
-aaa
-bbb
-ccc
-zzz
+<textarea id="text1" oninput="compareText()">Code1_JUST_PaStE_it_iN
+Old_Code2
+Old_Code3
+Old_Code4
+Old_Code5
 </textarea>
-<textarea id="text2" oninput="compareText()">
-aaa
-eee
-ccc
+</textarea>
+<textarea id="text2" oninput="compareText()">Code1_JUST_PaStE_it_iN
+New_CodeXYZ1
+New_CodeXYZ2
+New_CodeXYZ3
+Old_Code3
+Old_Code4
+Old_Code5
 </textarea>
 </div>
 <div id="comparison">
@@ -115,5 +118,19 @@ newDiv.innerHTML = text2;
 }
 compareText(); // call the function once to display the initial differences
 </script>
+<style>
+    textarea {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 2em;
+    padding: 10px;
+    margin: 3rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #14191f;
+    color: #ffcfcf;
+    resize: vertical;
+    text-shadow: 1px 1px 12px pink, 1px -1px 32px deeppink, -1px 1px 3px deeppink;
+}
+</style>
 </body>
 </html>

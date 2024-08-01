@@ -1,0 +1,586 @@
+/* Global styles */
+
+
+* {
+    box-sizing: border-box;
+    padding: 2px;
+    border-radius: 5px;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: 'Menlo', monospace;
+    background-color: #2a2139;
+    /* color: #f92aad; */
+    line-height: 2.5;
+  }
+  
+  /* Typography */
+  
+  code[class*="language-"],
+  pre[class*="language-"] {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 2.5;
+    tab-size: 4;
+    hyphens: none;
+  }
+  
+  /* Layout */
+  
+  .textarea-container,
+  #comparison {
+    display: flex;
+    flex-direction: row;
+    min-height: 280px;
+  }
+  
+  .old,
+  .new,
+  .diff {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 420px;
+    box-sizing: border-box;
+  }
+  
+  .old,
+  .new {
+    width: 30vw;
+  }
+  
+  .diff {
+    width: calc(100% - 60vw);
+  }
+  
+  textarea {
+    min-height: 280px;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 2em;
+    padding: 10px;
+    margin: 3rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #14191f;
+    color: #ffcfcf;
+    resize: vertical;
+    text-shadow: 1px 1px 12px pink, 1px -1px 32px deeppink, -1px 1px 3px deeppink;
+    -webkit-spell-check: none !important;
+  }
+  
+  /* Colors */
+  
+  .added {
+    background-color: #dfd;
+  }
+  
+  .removed {
+    background-color: #fdd;
+  }
+  
+  .unchanged {
+    background-color: #fff;
+  }
+  
+  .diff2html-code-frame .d2h-code-line.d2h-added {
+    background-color: #0f0;
+  }
+  
+  .diff2html-code-frame .d2h-code-line.d2h-removed {
+    background-color: #f00;
+  }
+  
+  /* diff2html styles */
+  
+  .diff2html-file-list {
+    display: none;
+  }
+  
+  .diff2html-code-frame {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .diff2html-code-frame .d2h-file-header {
+    background-color: #444;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+  }
+  
+  .diff2html-code-frame .d2h-code-line {
+    padding: 10px;
+  }
+  
+  .d2h-file-wrapper {
+    margin-bottom: 1em;
+    background-color: #dfcbbdf5;
+    border-radius: 15px;
+  }
+  
+  .d2h-file-side-diff {
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.562);
+    border-radius: 6px;
+  }
+  
+  .d2h-code-side-line {
+    width: 100%;
+  }
+  
+  .d2h-code-side-linenumber {
+    padding: unset;
+  }
+  
+  #comparison div div {
+    padding: 5px !important;
+  }
+  
+  #comparison div {
+    width: 33vw;
+    min-height: 400px;
+  }
+  
+  /* Scrollbar styles */
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #99999977;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #99999977;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #66666677;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  textarea::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #99999977;
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    background-color: #99999977;
+    border-radius: 10px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #66666677;
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+
+
+
+
+
+
+  body {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .diff2html-file-list {
+    display: none;
+  }
+  
+  .diff2html-code-frame {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .diff2html-code-frame .d2h-file-header {
+    background-color: #444;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+  }
+  
+  .diff2html-code-frame .d2h-code-line {
+    padding: 10px;
+  }
+  
+  .diff2html-code-frame .d2h-code-line.d2h-added {
+    background-color: #0f0;
+  }
+  
+  .diff2html-code-frame .d2h-code-line.d2h-removed {
+    background-color: #f00;
+  }
+  
+  .textarea-container, #comparison {
+    display: flex;
+    flex-direction: row;
+    min-height: 280px;
+  }
+  
+  #comparison {
+    background-color: rgb(243, 241, 232);
+    border-radius: 25px;
+  }
+  
+  .old, .new, .diff {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 420px;
+    box-sizing: border-box;
+  }
+  
+  .old, .new {
+    width: 30vw;
+  }
+  
+  .diff {
+    width: calc(100% - 60vw);
+  }
+  
+  textarea {
+    min-height: 280px;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  pre {
+    white-space: pre;
+  }
+  
+  .added {
+    background-color: #dfd;
+  }
+  
+  .removed {
+    background-color: #fdd;
+  }
+  
+  .unchanged {
+    background-color: #fff;
+  }
+  
+  * {
+    box-sizing: border-box;
+    /* margin: 0;
+    padding: 0; */
+  }
+  
+  body {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    line-height: 2.5;
+    color: #201f1de4;
+    background-color: #2a2139;
+  }
+  
+  div {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  textarea {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    padding: 10px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #34294f;
+    color: #201f1de4;
+    resize: vertical;
+  }
+  
+  code[class*="language-"],
+  pre[class*="language-"] {
+    color: #201f1de4;
+    text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 2.5;
+  
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+  
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+  
+  /* Code blocks */
+  pre[class*="language-"] {
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+  }
+  
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
+    background-color: transparent !important;
+    background-image: linear-gradient(to bottom, #2a2139 75%, #34294f);
+  }
+  
+  /* Inline code */
+  :not(pre) > code[class*="language-"] {
+    padding: .1em;
+    border-radius: .3em;
+    white-space: normal;
+  }
+  
+  .token.comment,
+  .token.block-comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #8e8e8e;
+  }
+
+  /* kilian_extra_css.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px !important;
+    font-family: 'Menlo', monospace;
+  }
+  
+  .textarea-container, #comparison {
+    display: flex;
+    flex-direction: row;
+    min-height: 280px;
+  }
+  
+  #comparison {
+    background-color: rgb(243, 241, 232);
+    border-radius: 25px;
+  }
+  
+  .old, .new, .diff {
+    padding: 10px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 420px;
+    box-sizing: border-box;
+  }
+  
+  .old, .new {
+    width: 30vw;
+  }
+  
+  .diff {
+    width: calc(100% - 60vw);
+  }
+  
+  textarea {
+    min-height: 280px;
+    width: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 2em;
+    padding: 10px;
+    margin: 3rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #14191f;
+    color: #ffcfcf;
+    resize: vertical;
+    text-shadow: 1px 1px 12px pink, 1px -1px 32px deeppink, -1px 1px 3px deeppink;
+    -webkit-spell-check: none !important;
+  }
+  
+  pre {
+    white-space: pre;
+  }
+  
+  .added {
+    background-color: #dfd;
+  }
+  
+  .removed {
+    background-color: #fdd;
+  }
+  
+  .unchanged {
+    background-color: #fff;
+  }
+  
+  * {
+    box-sizing: border-box;
+    /* margin: 0;
+    padding: 0;
+    border-radius: 25px;
+    padding:5px; */
+  }
+  
+  .diff2html-file-list {
+    display: none;
+  }
+  
+  .diff2html-code-frame {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .diff2html-code-frame .d2h-file-header {
+    background-color: #444;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+  }
+  
+  .diff2html-code-frame .d2h-code-line {
+    padding: 10px;
+  }
+  
+  .diff2html-code-frame .d2h-code-line.d2h-added {
+    background-color: #0f0;
+  }
+  
+  .diff2html-code-frame .d2h-code-line.d2h-removed {
+    background-color: #f00;
+  }
+  
+  #diff-container {
+    height: 80%;
+  }
+
+
+  .d2h-file-wrapper {
+    /* margin-bottom: 1em */
+    margin-bottom: 1em;
+    background-color: #dfcbbdf5;
+    border-radius: 15px;
+}
+.d2h-file-side-diff {
+    /* width: 50% */
+    width: 50%;
+    background-color: beige;
+  }
+
+  /* For the entire website */
+::-webkit-scrollbar {
+    width: 10px; /* adjust the width to your liking */
+    height: 10px;
+    background-color: #99999977; /* gray with 50% opacity */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #99999977; /* gray with 50% opacity */
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #66666677; /* darker gray on hover */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  /* For a specific textarea or element */
+  textarea::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #99999977;
+  }
+  
+  textarea::-webkit-scrollbar-thumb {
+    background-color: #99999977;
+    border-radius: 10px;
+  }
+  
+  textarea::-webkit-scrollbar-thumb:hover {
+    background-color: #66666677;
+  }
+  
+  textarea::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+
+.d2h-file-side-diff {
+        width: 50%;
+        background-color: rgba(255, 255, 255, 0.562);
+        border-radius: 6px;
+    }
+    
+div {
+
+        box-shadow: 0 0 10px rgb(39 35 35 / 20%);
+    }
+
+    .d2h-code-side-line {
+
+        width: 100%;
+    }
+    
+
+
+
+.d2h-code-side-linenumber {
+    padding: unset;
+}
+
+#comparison div div {
+    padding: 5px !important;
+}
+
+#comparison div  {
+    width:33vw;
+    min-height: 400px;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+#comparison div div {
+  overflow: auto;
+  white-space: nowrap;
+
+}
+
+h2{
+  opacity: 0.51; letter-spacing:2em; padding: 0 8rem;color: #99998877;
+}
+
+#line-diff, #word-diff, #char-diff {
+  white-space: pre;
+}

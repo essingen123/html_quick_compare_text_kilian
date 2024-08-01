@@ -27,8 +27,11 @@ def print_instructions(port):
     print(f"Server started. Access your webpage at http://localhost:{port}")
     print("Press Ctrl+C to stop the server.")
 
-if __name__ == "__main__":
+def the_runner():
     port = find_free_port()
     print_instructions(port)
     open_in_browser(port)
     start_server(port)
+
+if __name__ == "__main__":
+    the_runner
