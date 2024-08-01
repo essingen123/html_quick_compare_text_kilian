@@ -23,10 +23,10 @@ set303e=Code Diff, Local Development, Automation, Quick Wins, Batteries Included
 set303f=A lightweight, local code diff compare tool that helps you quickly compare two pieces of code, with a dash of magic and a built-in local server, because we love convenience.
 
 # 🌐 website URL
-set303g=super_quick_text_compare_kilian.html
+set303g=index.html
 
 # 🎉 GithubPartywebpageLink
-set303h=
+set303h=index.html
 
 # 🌳 Branch to commit to, 'main' or a new branch name
 set303j=master
@@ -38,5 +38,6 @@ set303k=Automated ~date ~data
 set303l=y
 
 # DONT EDIT OUT THIS LAST LINE
+set303h=
 set303h=
 set303h=
