@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="diff2html.min.css">
-  <script src="diff2html-ui.min.js"></script>
-  <script src="diff.min.js"></script>
-  <script src="prism.min.js"></script>
-  <link rel="stylesheet" href="kilian_extra_css.css">
-  <link rel="stylesheet" href="prism-synthwave84.css">
-  <script src="hogan.min.js"></script>
+  <link rel="stylesheet" href="dep/diff2html.min.css">
+  <script src="dep/diff2html-ui.min.js"></script>
+  <script src="dep/diff.min.js"></script>
+  <script src="dep/prism.min.js"></script>
+  <link rel="stylesheet" href="dep/kilian_extra_css.css">
+  <link rel="stylesheet" href="dep/prism-synthwave84.css">
+  <script src="dep/hogan.min.js"></script>
 
 </head>
 <body>
-  <img src="code_diff_unicorn.webp" style="width: 5%; position: absolute; left: 20px; top: 10px;" />
+  <img src="dep/code_diff_unicorn.webp" style="width: 5%; position: absolute; left: 20px; top: 10px;" />
   <h2>CODE DIFF</h2>
   <div class="textarea-container">
     <textarea id="text1" spellcheck="false">Code1_JUST_PaStE_it_iN
@@ -123,7 +123,7 @@ compareText(); // call the function once to display the initial differences
 </script>
 
 
-<link rel="stylesheet" href="animate.min.css">
+<link rel="stylesheet" href="dep/animate.min.css">
 <script>
   const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
   const observer = new MutationObserver(mutations => {
