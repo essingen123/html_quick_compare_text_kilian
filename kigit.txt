@@ -23,7 +23,7 @@ set303e=Code Diff, Local Development, Automation, Quick Wins, Batteries Included
 set303f=A lightweight, local code diff compare tool that helps you quickly compare two pieces of code, with a dash of magic and a built-in local server, because we love convenience.
 
 # 🌐 website URL
-set303g=
+set303g=index.html
 
 # 🎉 GithubPartywebpageLink
 set303h=index.html
