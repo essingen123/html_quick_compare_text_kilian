@@ -17,10 +17,10 @@ set303c=y
 set303d=y
 
 # 🗑️ tags, separated by commas
-set303e=Git, Bash, Automation, Automagic, un-PEP8-perhaps
+set303e=Code Diff, Local Development, Automation, Quick Wins, un-PEP8-perhaps
 
 # 📝 description
-set303f=A work in progress with automation testing for Git leveraging python, bash etc
+set303f=A lightweight, local code diff compare tool that helps you quickly compare two pieces of code, with a dash of magic.
 
 # 🌐 website URL
 set303g=
