@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diff2Html</title>
+  <link rel="stylesheet" href="dep/diff2html.min.css">
+  <link rel="stylesheet" href="dep/kilian_extra_css.css">
+  <link rel="stylesheet" href="dep/prism-synthwave84.css">
+  <script src="dep/diff2html-ui.min.js" defer></script>
+  <script src="dep/diff.min.js" defer></script>
+  <script src="dep/prism.min.js" defer></script>
+  <script src="dep/hogan.min.js" defer></script>
+  <style>
+    .unilogo {
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      opacity: 0.3;
+      filter: contrast(32) grayscale(0.5) invert(0.4) brightness(0.25);
+      scale: 3;
+      z-index: -1;
+    }
+    #comparison {
+      opacity: 0.1;
+    }
+    .big_go_button {
+      background-image: linear-gradient(to bottom, #378247, #234321);
+      border: none;
+      border-radius: 50% !important;
+      color: #FFFFFF;
+      padding: 0;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 200px;
+      height: 200px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 0;
+      padding-top: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      position: absolute;
+      left: 40%;
+      margin-top: 12rem;
+      text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+      outline: 5px solid rgba(255, 255, 255, 0.5);
+      outline-offset: -2px;
+      bottom: 20px;
+      z-index: 303;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: 0;
+      animation: rotate-outline 2s ease-in-out infinite, rotate-code-great-for-everything 3s ease-in-out infinite;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-70%);
+      margin-left: -6% !important;
+    }
+    .big_go_button:active {
+      background-image: linear-gradient(to bottom, #2F5134, #1B3821);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+      outline: 5px solid rgba(255, 255, 255, 0.8);
+      outline-offset: -2px;
+    }
+    textarea {
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      box-sizing: border-box;
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+      font-size: 2em;
+      border: none;
+      border-radius: 10px;
+      background-color: #14191f;
+      color: #ffcfcf;
+      resize: vertical;
+      text-shadow: 1px 1px 12px pink, 1px -1px 32px deeppink, -1px 1px 3px deeppink;
+      -webkit-spell-check: none !important;
+      box-shadow: 0 0 47px #71419e6b;
+      overflow: hidden;
+      white-space: nowrap;
+      transform-origin: bottom;
+      border-block: none;
+      box-sizing: border-box;
+      display: grid;
+      justify-items: end;
+      align-items: end;
+      display: table-cell;
+      vertical-align: bottom;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      display: unset;
+      grid-template-rows: 1fr;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: end;
+      vertical-align: bottom;
+      text-align: center;
+      line-height: 1.5;
+      writing-mode: horizontal-tb;
+      text-orientation: upright;
+      align-content: flex-end;
+      justify-content: flex-end;
+      align-items: flex-end;
+      flex-basis: auto;
+      flex-grow: 0;
+      scale: 3.0;
+      font-weight: bolder;
+      text-rendering: optimizeSpeed;
+      padding: 10px;
+      min-height: 280px;
+      width: 100%;
+      width: 1800px !important;
+      height: 3000px !important;
+      margin: 3rem;
+      margin: auto;
+      padding: 59px;
+      font-size: 28px;
+      min-height: 600px;
+      transform: perspective(61px) rotateX(25deg);
+      transform-origin: bottom;
+      height: 100%;
+      height: 100%;
+      padding: 0;
+      margin: -2640px auto 40px auto;
+    }
+    textarea:nth-child(1) {
+      border-radius: 15%;
+      border-bottom-right-radius: 40%;
+    }
+
+    textarea:nth-child(3) {
+      border-radius: 15%;
+      border-bottom-left-radius: 40%;
+    }
+
+    h2 {
+      text-align: center;
+      margin: auto !important;
+    }
+    textarea {
+      -webkit-font-smoothing: none;
+      color: #f9e1e1fa;
+      text-rendering: optimizeSpeed;
+      outline: solid 2px rgba(226, 201, 201, 0.2);
+      position: relative;
+      -webkit-text-stroke: thick;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-width: 0.1px;
+    }
+    @keyframes rotate-outline {
+      0% {
+        outline-offset: 0px;
+        transform: perspective(32px) rotateX(10deg) translateY(0) rotateY(0deg);
+        border: 1px 21px dashed rgb(255, 255, 255);
+      }
+      50% {
+        outline-offset: 0px;
+        transform: perspective(32px) rotateX(20deg) translateY(-10px) rotateY(5deg);
+        border: 22px 21px dashed rgb(226, 209, 209);
+        margin: -20% auto;
+      }
+      100% {
+        outline-offset: 0px;
+        transform: perspective(32px) rotateX(30deg) translateY(0) rotateY(0deg);
+        border: 1px 21px dashed rgb(255, 255, 255);
+      }
+    }
+    @keyframes rotate-code-great-for-everything {
+      0% {
+        transform: perspective(25px) rotateX(3deg) scale(1.15);
+      }
+      50% {
+        transform: perspective(36px) rotateX(24deg) scale(0.4);
+      }
+      100% {
+        transform: perspective(25px) rotateX(3deg) scale(1.15);
+      }
+    }
+    textarea::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border-width: 0.1px;
+    }
+  </style>
+</head>
+
+<body>
+  <img class="unilogo" alt="a unicorn logo" src="dep/code_diff_unicorn.webp"
+    style="width: 5%; position: absolute; left: 20px; top: 10px;" />
+  <h2>CODE DIFF</h2>
+  <div class="textarea-container">
+     <textarea title="text1" name="text1" id="text1" spellcheck="false"></textarea>
+   
+   <button class="big_go_button">
+      GO
+    </button>
+  </label>
+   <textarea title="text2" name="text2" id="text2" autocomplete="off" spellcheck="false"></textarea>
+
+   </div>
+  <div id="diff-container"></div>
+  <script>
+    const text1Element = document.getElementById('text1');
+    const text2Element = document.getElementById('text2');
+    const diffContainerElement = document.getElementById('diff-container');
+
+    let debounceTimeout;
+
+    function debounce(func, wait) {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(func, wait);
+    }
+
+    function updateDiff() {
+      const text1 = text1Element.value;
+      const text2 = text2Element.value;
+      const diffInput = `--- a/a.js
++++ b/b.js
+@@ -1,5 +1,3 @@
+-${text1.replace(/\n/g, '\n-')}
++${text2.replace(/\n/g, '\n+')}`;
+      const configuration = {
+        drawFileList: false,
+        matching: 'lines',
+        outputFormat: 'side-by-side',
+        highlight: true
+      };
+      const diff2htmlUi = new Diff2HtmlUI(diffContainerElement, diffInput, configuration);
+      diff2htmlUi.draw();
+      diff2htmlUi.highlightCode();
+    }
+
+    let button = document.querySelector('.big_go_button');
+
+    button.style.transition = 'opacity 800ms';
+
+    button.addEventListener('click', function () {
+      const comparu = document.getElementById('comparison');
+
+      comparu.style.transition = 'opacity 800ms';
+
+      button.style.opacity = 1;
+      setTimeout(() => {
+        button.style.opacity = 0;
+        comparu.style.opacity = 1;
+      }, 0);
+
+      setTimeout(() => {
+        button.style.display = 'none';
+      }, 800);
+
+      text1Element.addEventListener('input', () => debounce(updateDiff, 300));
+      text2Element.addEventListener('input', () => debounce(updateDiff, 300));
+      updateDiff();
+
+      text1Element.addEventListener('input', compareText);
+      text2Element.addEventListener('input', compareText);
+      compareText();
+    });
+
+    // Function to type text with random delays
+    function typeText(element, text, callback) {
+      let i = 0;
+      let typing = true;
+      let firstFocus = true;
+
+      function type() {
+        if (i < text.length && typing) {
+          element.value += text.charAt(i);
+          i++;
+          const delay = Math.floor(Math.random() * 100) + 50; // Random delay between 50ms and 150ms
+          setTimeout(type, delay);
+        } else {
+          if (callback) callback();
+        }
+      }
+
+      element.addEventListener('focus', () => {
+        if (firstFocus) {
+          typing = false;
+          element.value = ''; // Clear the textarea when focused for the first time
+          firstFocus = false;
+        }
+      });
+
+      type();
+    }
+
+    // Focus on the first textarea and type the text
+    document.addEventListener('DOMContentLoaded', () => {
+      text1Element.focus();
+      typeText(text1Element, "🍀✨💜paste in here\n\npaste in here\n\npaste in here\n\npaste in here\n\npaste in here\n", () => {
+        typeText(text2Element, "🍀✨💜paste or write\n\n in here to\n\npaste or write\n\nin here to\n\npaste or write in here to\n\npaste or write in here to\n\npaste or write in here to\n", () => {
+          text2Element.focus();
+        });
+      });
+    });
+  </script>
+  <div id="comparison">
+    <div id="line-diff-container">
+      <h3>Line Level Diff</h3>
+      <div id="line-diff"></div>
+    </div>
+    <div id="word-diff-container">
+      <h3>Word Level Diff</h3>
+      <div id="word-diff"></div>
+    </div>
+    <div id="char-diff-container">
+      <h3>Char Level Diff</h3>
+      <div id="char-diff"></div>
+    </div>
+  </div>
+  <script>
+    function compareText() {
+      const text1 = document.getElementById('text1').value.trim();
+      const text2 = document.getElementById('text2').value.trim();
+      const charDiff = Diff.diffChars(text1, text2);
+      const wordDiff = Diff.diffWords(text1, text2);
+      const lineDiff = Diff.diffLines(text1, text2);
+
+      function createDiffFragment(diff, id) {
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < diff.length; i++) {
+          const node = document.createElement('span');
+          node.appendChild(document.createTextNode(diff[i].value));
+          if (diff[i].added) {
+            node.style.color = 'green';
+          } else if (diff[i].removed) {
+            node.style.color = 'red';
+          }
+          node.style.whiteSpace = 'pre';
+          fragment.appendChild(node);
+          if (diff[i].value.endsWith("\n")) {
+            const br = document.createElement('br');
+            fragment.appendChild(br);
+            fragment.appendChild(document.createTextNode("\n"));
+          }
+        }
+        document.getElementById(id).textContent = '';
+        document.getElementById(id).appendChild(fragment);
+      }
+
+      createDiffFragment(charDiff, 'char-diff');
+      createDiffFragment(wordDiff, 'word-diff');
+      createDiffFragment(lineDiff, 'line-diff');
+    }
+  </script>
+  <link rel="stylesheet" href="dep/animate.min.css">
+  <script>
+    const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
+    let animationTriggered = false;
+
+    const observer = new MutationObserver(mutations => {
+      if (!animationTriggered) {
+        mutations.forEach(mutation => {
+          if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+            Array.prototype.forEach.call(mutation.addedNodes, node => {
+              if (node.nodeType === 1) {
+                if (node.classList.contains('big_go_button')) {
+                  const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                  node.classList.add(randomAnimation);
+                  animationTriggered = true;
+                }
+              }
+            });
+          }
+        });
+      }
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    const inputField = document.getElementById('text1');
+    inputField.addEventListener('input', () => {
+      document.body.classList.add('shake');
+      setTimeout(() => {
+        document.body.classList.remove('shake');
+      }, 1000);
+    });
+  </script>
+</body>
+
+</html>
