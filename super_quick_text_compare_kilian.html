@@ -15,15 +15,18 @@
   <style>
     .unilogo {
       position: absolute;
-    left: 20px;
-    top: 10px;
-    opacity: 0.15;
-    filter: contrast(32) grayscale(0.8) invert(0.3) brightness(0.55);
-    scale: 2;
-    z-index: inherit;
-    width:unset !important;
+      left: 20px;
+      top: 10px;
+      opacity: 0.15;
+      filter: contrast(32) grayscale(0.8) invert(0.3) brightness(0.55);
+      scale: 2;
+      z-index: inherit;
+      width: unset !important;
     }
-    #comparison {opacity:0.1;}
+
+    #comparison {
+      opacity: 0.1;
+    }
   </style>
 </head>
 
@@ -37,63 +40,64 @@
 PASTE HERE
 🍀✨
 </textarea>
-<button class="big_go_button">
-  GO
-</button>
-<style>
-.big_go_button {
-  background-image: linear-gradient(to bottom, #378247, #234321);
-  border: none;
-  border-radius: 2% !important;
-  color: #FFFFFF;
-  padding: 0;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 200px;
-  height: 80px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 0;
-  padding-top: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  left: 45%;
-  margin-top: 12rem;
-  /* Adding some subtle shine to the button */
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
-  /* Adding an outline for that arcade button feel */
-  outline: 5px solid rgba(255, 255, 255, 0.5);
-  outline-offset: -2px;
-  bottom:20px;
-  z-index: 303; /*meh*/
-  position: absolute;
-  top: 50%;
-  left: 50%;
+    <button class="big_go_button">
+      GO
+    </button>
+    <style>
+      .big_go_button {
+        background-image: linear-gradient(to bottom, #378247, #234321);
+        border: none;
+        border-radius: 2% !important;
+        color: #FFFFFF;
+        padding: 0;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 200px;
+        height: 80px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 0;
+        padding-top: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        left: 45%;
+        margin-top: 12rem;
+        /* Adding some subtle shine to the button */
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+        /* Adding an outline for that arcade button feel */
+        outline: 5px solid rgba(255, 255, 255, 0.5);
+        outline-offset: -2px;
+        bottom: 20px;
+        z-index: 303;
+        /*meh*/
+        position: absolute;
+        top: 50%;
+        left: 50%;
 
-  margin: 0;
+        margin: 0;
 
 
 
-  margin: 0;
-  /* added these two lines to ensure horizontal centering */
-  bottom: 0;
-  left: 50%; 
-  transform: translateX(-70%);
-  margin-left: -6% !important;
-}
+        margin: 0;
+        /* added these two lines to ensure horizontal centering */
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-70%);
+        margin-left: -6% !important;
+      }
 
-.big_go_button:active {
-  background-image: linear-gradient(to bottom, #2F5134, #1B3821);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+      .big_go_button:active {
+        background-image: linear-gradient(to bottom, #2F5134, #1B3821);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
 
-  /* Changing the outline on click */
-  outline: 5px solid rgba(255, 255, 255, 0.8);
-  outline-offset: -2px;
-}
-</style>
+        /* Changing the outline on click */
+        outline: 5px solid rgba(255, 255, 255, 0.8);
+        outline-offset: -2px;
+      }
+    </style>
     <textarea id="text2" autocomplete="off" spellcheck="false">NEW CODE
 PASTE HERE
 ✨
@@ -126,32 +130,32 @@ PASTE HERE
 
     let button = document.querySelector('.big_go_button');
 
-button.style.transition = 'opacity 800ms'; // Add transition effect
+    button.style.transition = 'opacity 800ms'; // Add transition effect
 
-button.addEventListener('click', function() {
-  comparu = document.getElementById('comparison');
+    button.addEventListener('click', function () {
+      comparu = document.getElementById('comparison');
 
-comparu.style.transition = 'opacity 800ms'; // Add transition effect
+      comparu.style.transition = 'opacity 800ms'; // Add transition effect
 
-button.style.opacity = 1; // Initialize opacity
-  setTimeout(() => {
-    button.style.opacity = 0; // Fade out
-    comparu.style.opacity = 1; // Fade in
-  }, 0);
+      button.style.opacity = 1; // Initialize opacity
+      setTimeout(() => {
+        button.style.opacity = 0; // Fade out
+        comparu.style.opacity = 1; // Fade in
+      }, 0);
 
-  setTimeout(() => {
-    button.style.display = 'none'; // Hide after fade out
-  }, 800);
+      setTimeout(() => {
+        button.style.display = 'none'; // Hide after fade out
+      }, 800);
 
-  text1Element.addEventListener('input', updateDiff);
-  text2Element.addEventListener('input', updateDiff);
-  updateDiff();
+      text1Element.addEventListener('input', updateDiff);
+      text2Element.addEventListener('input', updateDiff);
+      updateDiff();
 
-  text1Element.addEventListener('input', compareText);
-  text2Element.addEventListener('input', compareText);
-  compareText(); // call the function once to display the initial differences
-});
-   
+      text1Element.addEventListener('input', compareText);
+      text2Element.addEventListener('input', compareText);
+      compareText(); // call the function once to display the initial differences
+    });
+
   </script>
   <div id="comparison">
     <div id="line-diff-container">
@@ -205,38 +209,38 @@ button.style.opacity = 1; // Initialize opacity
   </script>
   <link rel="stylesheet" href="dep/animate.min.css">
   <script>
-  const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
-let animationTriggered = false; // Flag to check if animation has been triggered
+    const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
+    let animationTriggered = false; // Flag to check if animation has been triggered
 
-const observer = new MutationObserver(mutations => {
-  if (!animationTriggered) {
-    mutations.forEach(mutation => {
-      if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-        Array.prototype.forEach.call(mutation.addedNodes, node => {
-          if (node.nodeType === 1) { // Only consider element nodes
-            if (node.classList.contains('big_go_button')) { // Check if the node is the button
-              const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-              node.classList.add(randomAnimation);
-              animationTriggered = true; // Set flag to true
-            }
+    const observer = new MutationObserver(mutations => {
+      if (!animationTriggered) {
+        mutations.forEach(mutation => {
+          if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+            Array.prototype.forEach.call(mutation.addedNodes, node => {
+              if (node.nodeType === 1) { // Only consider element nodes
+                if (node.classList.contains('big_go_button')) { // Check if the node is the button
+                  const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                  node.classList.add(randomAnimation);
+                  animationTriggered = true; // Set flag to true
+                }
+              }
+            });
           }
         });
       }
     });
-  }
-});
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
 
-// inputField = document.getElementById('text1');
-//     inputField.addEventListener('input', () => {
-//       document.body.classList.add('shake');
-//       setTimeout(() => {
-//         document.body.classList.remove('shake');
-//       }, 1000);
-//     });
+    // inputField = document.getElementById('text1');
+    //     inputField.addEventListener('input', () => {
+    //       document.body.classList.add('shake');
+    //       setTimeout(() => {
+    //         document.body.classList.remove('shake');
+    //       }, 1000);
+    //     });
   </script>
   <style>
     .pixel {
@@ -247,57 +251,73 @@ observer.observe(document.body, {
       transform: scale(0);
       transition: transform 0.5s;
     }
+
     .pixel.active {
       transform: scale(1);
     }
+
     .shake {
       animation: shake 0.5s;
     }
+
     @keyframes shake {
       0% {
         transform: translate(0, 0);
       }
+
       20% {
         transform: translate(-5px, 30px);
       }
+
       40% {
         transform: translate(5px, 0);
       }
+
       60% {
         transform: translate(-5px, 0);
       }
+
       80% {
         transform: translate(5px, 23px);
       }
+
       100% {
         transform: translate(0, 0);
       }
     }
+
     .shake {
       animation: shake 0.5s;
     }
+
     @keyframes shake {
       0% {
         transform: translate(0, 12px);
       }
+
       20% {
         transform: translate(-2px, 0);
       }
+
       40% {
         transform: translate(3px, 0);
       }
+
       60% {
         transform: translate(-5px, 0);
       }
+
       80% {
         transform: translate(5px, 0);
       }
+
       100% {
         transform: translate(0, 0);
       }
     }
+
     textarea {
-   
+
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -313,32 +333,35 @@ observer.observe(document.body, {
       text-shadow: 1px 1px 12px pink, 1px -1px 32px deeppink, -1px 1px 3px deeppink;
       -webkit-spell-check: none !important;
       /* border-radius: 50%; */
-    
+
       box-shadow: 0 0 47px #71419e6b;
       overflow: hidden;
-     
+
       white-space: nowrap;
       transform-origin: bottom;
       border-block: none;
       box-sizing: border-box;
-    
+
       display: grid;
-     
+
       display: flex;
-   
+
       display: unset;
       grid-template-rows: 1fr;
       grid-template-columns: 1fr;
 
       line-height: 1.5;
-    
+
       font-weight: bolder;
-    
+
     }
+
     h2 {
       text-align: center;
-      margin: auto !important;      /* more important ;-) */
+      margin: auto !important;
+      /* more important ;-) */
     }
+
     textarea {
       -webkit-font-smoothing: none;
       /* font-size: 16px; */
@@ -348,6 +371,7 @@ observer.observe(document.body, {
       /* -webkit-text-stroke: 0.5px rgb(255, 255, 255), 0.15px rgb(216, 7, 235), 0.25px rgb(240, 140, 190); */
       /* border: dashed; */
     }
+
     textarea {
       /* outline-style: dotted;
       outline-width: 2px; */
@@ -357,8 +381,9 @@ observer.observe(document.body, {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    
-}
+
+    }
+
     textarea::before {
       content: "";
       position: absolute;
@@ -367,7 +392,7 @@ observer.observe(document.body, {
       width: 100%;
       height: 100%;
       /* border: 2px dotted black; */
-  
+
       border-width: 0.1px;
       /* animation: rotate-outline 10s linear infinite; */
     }
