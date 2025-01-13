@@ -30,3 +30,4 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## Acknowledgments 🙏
 This project uses the Diff library, which is licensed under the MIT License.
+<!---- Last Update: mån 13 jan 2025 16:17:38 CET -->
