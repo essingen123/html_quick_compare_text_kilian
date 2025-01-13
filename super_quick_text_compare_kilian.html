@@ -196,30 +196,30 @@ PASTE HERE
       createDiffFragment(lineDiff, 'line-diff');
     }
   </script>
-  <link rel="stylesheet" href="dep/animate.min.css">
+  <!-- <link rel="stylesheet" href="dep/animate.min.css"> -->
   <script>
-    const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
-    let animationTriggered = false;
+    // const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
+    // let animationTriggered = false;
 
-    const observer = new MutationObserver(mutations => {
-      if (!animationTriggered) {
-        mutations.forEach(mutation => {
-          if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-            Array.prototype.forEach.call(mutation.addedNodes, node => {
-              if (node.nodeType === 1 && node.classList.contains('big_go_button')) {
-                const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-                node.classList.add(randomAnimation);
-                animationTriggered = true;
-              }
-            });
-          }
-        });
-      }
-    });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
+    // const observer = new MutationObserver(mutations => {
+    //   if (!animationTriggered) {
+    //     mutations.forEach(mutation => {
+    //       if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+    //         Array.prototype.forEach.call(mutation.addedNodes, node => {
+    //           if (node.nodeType === 1 && node.classList.contains('big_go_button')) {
+    //             const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+    //             node.classList.add(randomAnimation);
+    //             animationTriggered = true;
+    //           }
+    //         });
+    //       }
+    //     });
+    //   }
+    // });
+    // observer.observe(document.body, {
+    //   childList: true,
+    //   subtree: true
+    // });
   </script>
 </body>
 
