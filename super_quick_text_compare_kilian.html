@@ -1,143 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diff2Html</title>
   <link rel="stylesheet" href="dep/diff2html.min.css">
-  <link rel="stylesheet" href="dep/kilian_extra_css.css">
+  <link rel="stylesheet" href="dep/darkspark2.css">
   <link rel="stylesheet" href="dep/prism-synthwave84.css">
-  <script src="dep/diff2html-ui.min.js" defer></script>
-  <script src="dep/diff.min.js" defer></script>
-  <script src="dep/prism.min.js" defer></script>
-  <script src="dep/hogan.min.js" defer></script>
+  <link rel="stylesheet" href="dep/kilian_extra_css.css">
   <style>
-    logo {
-      position: absolute;
-      left: 20px;
-      top: 10px;
-      filter: contrast(32) grayscale(0.8) invert(0.3) brightness(0.55);
-      scale: 2;
-      z-index: -1;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      user-select: none;
-      overflow: none;
-      pointer-events: none;
-      clip-path: none;
-      max-width:100%;
-      /* <img class="unilogo" alt="a unicorn logo" src="dep/code_diff_unicorn.webp" /> */
-      background-image: src("dep/code_diff_unicorn.webp");
+    /* apply pixel font to entire page */
+    * {
+      font-family: 'Monaco', monospace;
+      font-size: 16px;
+      -webkit-font-smoothing: none;
+      -moz-font-smoothing: none;
+      font-smoothing: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      line-height: 2.5;
+      color: #ccc;
+      background-color: #170f1b;
     }
 
     #comparison {
-      opacity: 0.1;
+      opacity: 0;
     }
 
     .big_go_button {
       background-image: linear-gradient(to bottom, #378247, #234321);
       border: none;
-      border-radius: 0;
       color: #FFFFFF;
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
-      width: 200px;
+      width: 100%;
       height: 80px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
       align-items: center;
-      width:100%;
-      border-radius: 0;
-    }
-
-    .big_go_button:active {
-      background-image: linear-gradient(to bottom, #2F5134, #1B3821);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
     }
 
     textarea {
-      margin:0;
+      margin: 0;
       padding: 10px;
-      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-      font-size: 16px;
-      border: none;
-      border-radius: 2px;
       background-color: #14191f;
       color: #ffcfcf;
       resize: vertical;
-      box-shadow: 0 0 47px #71419e6b;
-      line-height: 1.25;
-      font-weight: bolder;
-      /* no antialias for pixel style: */
-      -webkit-font-smoothing: none;
-      -moz-osx-font-smoothing: none;
-      -webkit-text-stroke: 1px transparent;
+      width: 100%;
+      height: 280px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
 
+    .spanx {
+      text-align: center;
+      color: #f0f0f0;
+      position: fixed;
+      bottom: 10px;
+      right: 20px;
+      opacity: 0.5;
+    }
 
+    .textarea-container {
+      display: flex;
+      flex-direction: row;
+    }
+
+    #comparison {
+      display: flex;
+      flex-direction: row;
+    }
+
+    #diff-container {
+      padding: 20px;
+    }
+
+    .diff2html-code-frame {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .diff2html-code-frame .d2h-file-header {
+      background-color: #444;
+      padding: 10px;
+      border-bottom: 1px solid #555;
+    }
+
+    .diff2html-code-frame .d2h-code-line {
+      padding: 10px;
+    }
+
+    .diff2html-code-frame .d2h-code-line.d2h-added {
+      background-color: #0f0;
+    }
+
+    .diff2html-code-frame .d2h-code-line.d2h-removed {
+      background-color: #f00;
+    }
+
+    #diff-containers {
+      display: flex;
+      flex-direction: row;
+    }
+
+    #line-diff-container, #word-diff-container, #char-diff-container {
+      padding: 20px;
+      margin: 20px;
+      border: 1px solid #555;
+      border-radius: 10px;
+      background-color: #333;
+    }
+
+    #line-diff, #word-diff, #char-diff {
+      padding: 20px;
+      overflow-y: auto;
+      max-height: 500px;
+    }
+    #diff-containers {
+      display: flex;
+      flex-direction: row;
       width: 100%;
     }
 
-    h2 {
-      text-align: center;
-      color: #f0f0f0;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 3em;
-      margin-top: 0;
+    .textarea-wrapper {
+      width: 50%;
+      padding: 20px;
+      box-sizing: border-box;
     }
-    div  {
-     background-color:#ffffff99; }
+    @media (max-width: 800px) {
+      .textarea-wrapper {
+        width: 100%;
+        padding: 10px;
+      }
+    }
+    .textarea-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    * {overflow: none;}
+    #diff-containers {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+    }
+
+    #line-diff-container, #word-diff-container, #char-diff-container {
+      flex: 1;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 800px) {
+      #diff-containers {
+        flex-direction: column;
+      }
+      #line-diff-container, #word-diff-container, #char-diff-container {
+        width: 100%;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
-
-<body> 
-  <h2>CODE DIFF</h2>
+<body>
+  <span class="spanx">CODE DIFF</span>
   <div class="textarea-container">
-    <textarea id="text1" autocomplete="off" spellcheck="false">OLD CODE
+    <div class="textarea-wrapper">
+      <h2>Old Code</h2>
+      <textarea id="text1" autocomplete="off" spellcheck="false">OLD CODE
 PASTE HERE
-🍀✨
 </textarea>
-  
-    <textarea id="text2" autocomplete="off" spellcheck="false">NEW CODE
+    </div>
+    <div class="textarea-wrapper">
+      <h2>New Code</h2>
+      <textarea id="text2" autocomplete="off" spellcheck="false">NEW CODE
 PASTE HERE
-✨
 </textarea>
-  </div>  <button class="big_go_button">GO</button>
+    </div>
+  </div>
+  <button class="big_go_button">GO</button>
   <div id="diff-container"></div>
+  <div id="comparison"></div>
+  <div id="diff-containers">
+    <div id="line-diff-container">
+      <h2>Line Level Diff</h2>
+      <div id="line-diff"></div>
+    </div>
+    <div id="word-diff-container">
+      <h2>Word Level Diff</h2>
+      <div id="word-diff"></div>
+    </div>
+    <div id="char-diff-container">
+      <h2>Char Level Diff</h2>
+      <div id="char-diff"></div>
+    </div>
+  </div>
+  <script src="dep/diff2html-ui.min.js" defer></script>
+  <script src="dep/diff.min.js" defer></script>
+  <script src="dep/prism.min.js" defer></script>
+  <script src="dep/hogan.min.js" defer></script>
   <script>
-    text1Element = document.getElementById('text1');
-    text2Element = document.getElementById('text2');
-    diffContainerElement = document.getElementById('diff-container');
+    const text1Element = document.getElementById('text1');
+    const text2Element = document.getElementById('text2');
+    const diffContainerElement = document.getElementById('diff-container');
+
     function updateDiff() {
-      text1 = text1Element.value;
-      text2 = text2Element.value;
-      diffInput = `--- a/a.js
+      const text1 = text1Element.value;
+      const text2 = text2Element.value;
+      const diffInput = `--- a/a.js
 +++ b/b.js
 @@ -1,5 +1,3 @@
 -${text1.replace(/\n/g, '\n-')}
 +${text2.replace(/\n/g, '\n+')}`;
-      configuration = {
+      const configuration = {
         drawFileList: false,
         matching: 'lines',
         outputFormat: 'side-by-side',
         highlight: true
       };
-      diff2htmlUi = new Diff2HtmlUI(diffContainerElement, diffInput, configuration);
+      const diff2htmlUi = new Diff2HtmlUI(diffContainerElement, diffInput, configuration);
       diff2htmlUi.draw();
       diff2htmlUi.highlightCode();
     }
 
-    let button = document.querySelector('.big_go_button');
-
-    button.addEventListener('click', function () {
-      comparu = document.getElementById('comparison');
-      button.style.opacity = 0; // Fade out
-      comparu.style.opacity = 1; // Fade in
+    document.querySelector('.big_go_button').addEventListener('click', function () {
+      const comparu = document.getElementById('comparison');
+      this.style.opacity = 0; 
+      comparu.style.opacity = 1; 
 
       setTimeout(() => {
-        button.style.display = 'none'; // Hide after fade out
+        this.style.display = 'none'; 
       }, 800);
 
       text1Element.addEventListener('input', updateDiff);
@@ -146,34 +242,20 @@ PASTE HERE
 
       text1Element.addEventListener('input', compareText);
       text2Element.addEventListener('input', compareText);
-      compareText(); // call the function once to display the initial differences
+      compareText(); 
     });
-  </script>
-  <div id="comparison"></div>
-    <div id="line-diff-container">
-      <h3>Line Level Diff</h3>
-      <div id="line-diff"></div>
-    </div>
-    <div id="word-diff-container">
-      <h3>Word Level Diff</h3>
-      <div id="word-diff"></div>
-    </div>
-    <div id="char-diff-container">
-      <h3>Char Level Diff</h3>
-      <div id="char-diff"></div>
-    </div>
-  </div>
-  <script>
+
     function compareText() {
-      text1 = document.getElementById('text1').value.trim();
-      text2 = document.getElementById('text2').value.trim();
-      charDiff = Diff.diffChars(text1, text2);
-      wordDiff = Diff.diffWords(text1, text2);
-      lineDiff = Diff.diffLines(text1, text2);
+      const text1 = document.getElementById('text1').value.trim();
+      const text2 = document.getElementById('text2').value.trim();
+      const charDiff = Diff.diffChars(text1, text2);
+      const wordDiff = Diff.diffWords(text1, text2);
+      const lineDiff = Diff.diffLines(text1, text2);
+
       function createDiffFragment(diff, id) {
-        var fragment = document.createDocumentFragment();
-        for (var i = 0; i < diff.length; i++) {
-          var node = document.createElement('span');
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < diff.length; i++) {
+          const node = document.createElement('span');
           node.appendChild(document.createTextNode(diff[i].value));
           if (diff[i].added) {
             node.style.color = 'green';
@@ -183,7 +265,7 @@ PASTE HERE
           node.style.whiteSpace = 'pre';
           fragment.appendChild(node);
           if (diff[i].value.endsWith("\n")) {
-            var br = document.createElement('br');
+            const br = document.createElement('br');
             fragment.appendChild(br);
             fragment.appendChild(document.createTextNode("\n"));
           }
@@ -195,31 +277,6 @@ PASTE HERE
       createDiffFragment(wordDiff, 'word-diff');
       createDiffFragment(lineDiff, 'line-diff');
     }
-  </script>
-  <!-- <link rel="stylesheet" href="dep/animate.min.css"> -->
-  <script>
-    // const animations = ['animate__bounceIn', 'animate__fadeIn', 'animate__slideInUp', 'animate__zoomIn'];
-    // let animationTriggered = false;
-
-    // const observer = new MutationObserver(mutations => {
-    //   if (!animationTriggered) {
-    //     mutations.forEach(mutation => {
-    //       if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-    //         Array.prototype.forEach.call(mutation.addedNodes, node => {
-    //           if (node.nodeType === 1 && node.classList.contains('big_go_button')) {
-    //             const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
-    //             node.classList.add(randomAnimation);
-    //             animationTriggered = true;
-    //           }
-    //         });
-    //       }
-    //     });
-    //   }
-    // });
-    // observer.observe(document.body, {
-    //   childList: true,
-    //   subtree: true
-    // });
   </script>
 </body>
 </html>
