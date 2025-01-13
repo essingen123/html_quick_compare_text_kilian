@@ -164,6 +164,82 @@
         padding: 20px;
       }
     }
+    /* Dark Theme */
+:root {
+  --d2h-dark-bg-color: #0d1117;
+  --d2h-dark-border-color: #30363d;
+  --d2h-dark-dim-color: #6e7681;
+}
+
+/* Light Theme */
+:root {
+  --d2h-light-bg-color: #fff;
+  --d2h-light-border-color: #ddd;
+  --d2h-light-dim-color: #ccc;
+}
+
+/* Base Styles */
+body {
+  background-color: var(--d2h-dark-bg-color);
+  color: var(--d2h-light-border-color);
+  font-family: Menlo, monospace;
+  font-size: 16px;
+  line-height: 2.5;
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  font-size: 2em;
+  padding: 10px;
+  margin: 20px;
+  border: 1px #66666699 solid;
+  border-radius: 10px;
+  background-color: var(--d2h-dark-bg-color);
+  color: var(--d2h-light-border-color);
+  resize: vertical;
+}
+
+/* Diff Container Styles */
+#diff-container {
+  height: 80%;
+}
+
+/* File Wrapper Styles */
+.d2h-file-wrapper {
+  margin-bottom: 1em;
+  background-color: rgba(223, 203, 189, 0.96);
+  border-radius: 15px;
+}
+
+.d2h-file-side-diff {
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.56);
+  border-radius: 6px;
+}
+
+/* Code Side Line Styles */
+.d2h-code-side-line {
+  width: 100%;
+}
+
+.d2h-code-side-linenumber {
+  padding: unset;
+}
+
+/* Comparison Styles */
+#comparison {
+  display: flex;
+  flex-direction: row;
+  /* min-height: 280px; */
+  background-color: rgb(243, 241, 232);
+  border-radius: 25px;
+}
+
+#comparison div {
+  width: 33vw;
+  min-height: 400px;
+}
   </style>
 </head>
 <body>

@@ -1,0 +1,26 @@
+/* may come handy to extraxt some of the used css on a page */
+(function() {
+  let usedStyles = '';
+  const elements = document.querySelectorAll('*');
+  const styleSheets = [...document.styleSheets];
+
+  styleSheets.forEach(styleSheet => {
+    let cssRules;
+    try {
+      cssRules = styleSheet.rules || styleSheet.cssRules;
+    } catch (e) {
+      return;
+    }
+
+    [...cssRules].forEach(rule => {
+      if (rule instanceof CSSStyleRule) {
+        const elementsForRule = document.querySelectorAll(rule.selectorText);
+        if (elementsForRule.length > 0) {
+          usedStyles += rule.cssText + '\n';
+        }
+      }
+    });
+  });
+
+  console.log(usedStyles);
+})();
