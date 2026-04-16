@@ -1,6 +1,525 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diff2Html - Pro Neon Pixel</title>
+  
+  <!-- Local Dependencies -->
+  <link rel="stylesheet" href="dep/diff2html.min.css">
+  <link rel="stylesheet" href="dep/kilian_extra_css.css">
+  <link rel="stylesheet" href="dep/prism-synthwave84.css">
+  <link rel="stylesheet" href="dep/animate.min.css">
+  
+  <!-- Pixel Font for the Arcade Vibe -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <script src="dep/diff2html-ui.min.js" defer></script>
+  <script src="dep/diff.min.js" defer></script>
+  <script src="dep/prism.min.js" defer></script>
+  <script src="dep/hogan.min.js" defer></script>
+
+  <style>
+    :root {
+      /* Pro Neon Pink & Glow Settings */
+      --neon-pink: #ff1493;
+      --neon-cyan: #00ffcc;
+      --neon-pink-glow: 0 0 10px rgba(255, 20, 147, 0.7), 0 0 20px rgba(255, 20, 147, 0.5);
+      --bg-color: #080a10;
+      --panel-bg: #0b0d14;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .unilogo {
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      opacity: 0.15;
+      filter: contrast(32) grayscale(0.5) invert(0.4) brightness(0.25);
+      transform: scale(2);
+      z-index: -1;
+    }
+
+    h2, h3, h4 {
+      font-family: 'Press Start 2P', cursive;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: var(--neon-pink-glow);
+    }
+
+    h2 { font-size: 2rem; margin-top: 10px; margin-bottom: 40px; letter-spacing: 2px; }
+    h3 { font-size: 0.9rem; border-bottom: 2px solid var(--neon-pink); padding-bottom: 10px; margin-bottom: 15px;}
+    h4 { font-size: 0.7rem; color: var(--neon-cyan); text-shadow: 0 0 5px var(--neon-cyan); margin-top: 25px; }
+
+    /* Layout for the inputs */
+    .textarea-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto 40px auto;
+      gap: 40px;
+      perspective: 1200px;
+    }
+
+    /* ROTATING GLOW BORDER WRAPPER */
+    .glow-wrapper {
+      position: relative;
+      width: 45%;
+      height: 450px;
+      border-radius: 12px;
+      background: var(--panel-bg);
+      padding: 4px; /* Thickness of the spinning border */
+      overflow: hidden; /* Clips the background gradient */
+      transform: rotateX(5deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: var(--neon-pink-glow);
+    }
+
+    /* The Spinning Conic Gradient */
+    .glow-wrapper::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(transparent, transparent, transparent, var(--neon-pink), var(--neon-cyan), transparent);
+      animation: spin-glow 4s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes spin-glow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Flattens perfectly when you type */
+    .glow-wrapper:focus-within {
+      transform: rotateX(0deg) scale(1.02);
+      box-shadow: 0 0 30px rgba(255, 20, 147, 0.8), 0 0 50px rgba(0, 255, 204, 0.4);
+    }
+
+    /* Pro, Subtle 3D Textarea (Inner Element) */
+    textarea.main-input {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background-color: #0b0d14; /* Covers the center, revealing only the animated border */
+      color: #ffffff; 
+      font-family: Consolas, Monaco, 'Andale Mono', monospace;
+      font-size: 1.1rem;
+      padding: 20px;
+      border: none;
+      border-radius: 8px; /* Slightly smaller than wrapper */
+      resize: none; /* Disable native resize to protect wrapper bounds */
+      box-sizing: border-box;
+      -webkit-spell-check: none !important;
+      z-index: 1;
+      outline: none;
+    }
+
+    /* Joystick / Arcade Pixel Buttons */
+    .big_go_button {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #111;
+      color: #ffffff;
+      border: 4px solid var(--neon-pink);
+      border-radius: 16px;
+      padding: 20px 30px;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: var(--neon-pink-glow);
+      text-shadow: 0 0 5px var(--neon-pink);
+      transition: all 0.2s ease;
+      
+      /* Positioning */
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+    }
+
+    .big_go_button:hover {
+      background-color: var(--neon-pink);
+      color: #000;
+      box-shadow: 0 0 30px var(--neon-pink), 0 0 60px var(--neon-pink);
+      text-shadow: none;
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .big_go_button:active {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    .btn-copy {
+      font-family: 'Press Start 2P', cursive;
+      background-color: #1a1a24;
+      color: var(--neon-cyan);
+      border: 2px solid var(--neon-cyan);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 0.6rem;
+      cursor: pointer;
+      float: right;
+      margin-top: -45px;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { background-color: var(--neon-cyan); color: #000; }
+
+    /* Output sections */
+    #diff-wrapper {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .panel-box {
+      background: var(--panel-bg);
+      border: 1px solid rgba(255, 20, 147, 0.3);
+      border-radius: 8px;
+      box-shadow: var(--neon-pink-glow);
+      padding: 20px;
+      margin-top: 30px;
+      position: relative;
+    }
+
+    /* Filename input styling */
+    .filename-input {
+      font-family: monospace;
+      background: #000;
+      color: var(--neon-cyan);
+      border: 1px solid var(--neon-pink);
+      padding: 10px;
+      border-radius: 4px;
+      width: 250px;
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+    }
+    .filename-input:focus { box-shadow: 0 0 10px var(--neon-cyan); }
+
+    /* Custom Output Textareas */
+    textarea.export-box {
+      width: 100%;
+      height: 250px;
+      background-color: #030407;
+      color: #00ffcc;
+      font-family: Consolas, monospace;
+      font-size: 1rem;
+      padding: 15px;
+      box-sizing: border-box;
+      border: 1px solid rgba(0, 255, 204, 0.4);
+      border-radius: 6px;
+      box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1);
+      resize: vertical;
+    }
+
+    textarea.terminal-box {
+      height: 120px;
+      color: #ffb86c; /* Terminal orange/yellow */
+      border-color: rgba(255, 184, 108, 0.5);
+    }
+
+    #comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .diff-box {
+      font-family: monospace;
+      font-size: 1rem;
+      background: #000;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* 
+      DARK MODE OVERRIDES FOR DIFF2HTML 
+      (Since their default styling is bright white) 
+    */
+    .d2h-file-header { background-color: #11141e !important; color: #fff !important; border-bottom: 1px solid var(--neon-pink) !important; }
+    .d2h-file-wrapper { border: 1px solid var(--neon-pink) !important; border-radius: 8px; overflow: hidden; background-color: #0b0d14; }
+    .d2h-code-line { color: #e0e0e0 !important; }
+    .d2h-code-line del { background-color: rgba(255, 20, 147, 0.25) !important; color: #ff99cc !important; }
+    .d2h-code-line ins { background-color: rgba(0, 255, 204, 0.2) !important; color: #99ffeb !important; }
+    .d2h-info { background-color: #1a1a24 !important; color: #aaa !important; }
+    .d2h-emptyplaceholder { background-color: #0b0d14 !important; }
+    table.d2h-diff-table { background-color: #0b0d14 !important; }
+    .d2h-code-linenumber { background-color: #11141e !important; color: #666 !important; border-right: 1px solid #333 !important;}
+
+  </style>
+</head>
+
+<body>
+  <img class="unilogo" alt="a unicorn logo" src="dep/code_diff_unicorn.webp" />
+  <h2>CODE DIFF</h2>
+
+  <div class="textarea-container">
+    <div class="glow-wrapper">
+      <textarea id="text1" class="main-input" spellcheck="false" placeholder="OLD CODE&#10;Paste here..."></textarea>
+    </div>
+    
+    <button class="big_go_button animate__animated animate__pulse animate__infinite">START</button>
+    
+    <div class="glow-wrapper">
+      <textarea id="text2" class="main-input" spellcheck="false" placeholder="NEW CODE&#10;Paste here..."></textarea>
+    </div>
+  </div>
+
+  <div id="diff-wrapper">
+    
+    <!-- 1. The main Diff2Html visualizer (Now fully dark-themed) -->
+    <div id="diff-container" class="panel-box" style="padding: 0;"></div>
+    
+    <!-- 2. Standard Patch Updater System -->
+    <div class="panel-box">
+      <h3>Patch Code Generator</h3>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-family: monospace; color:#fff;">Target Filename:</span> 
+        <input type="text" id="patch-filename" class="filename-input" value="app.js" placeholder="e.g. index.js">
+      </div>
+      
+      <h4>Unified Patch format</h4>
+      <button class="btn-copy" onclick="copyText('patch-output', this)">COPY PATCH</button>
+      <textarea id="patch-output" class="export-box" readonly placeholder="Patch output..."></textarea>
+
+      <h4>Terminal Apply Command</h4>
+      <button class="btn-copy" onclick="copyText('terminal-output', this)">COPY CMD</button>
+      <textarea id="terminal-output" class="export-box terminal-box" readonly placeholder="Terminal command..."></textarea>
+    </div>
+
+    <!-- 3. Custom Inline Format -->
+    <div class="panel-box">
+      <h3>Custom Inline Format Export</h3>
+      <button class="btn-copy" onclick="copyText('custom-diff-output', this)">COPY INLINE</button>
+      <textarea id="custom-diff-output" class="export-box" readonly placeholder="Output will generate here..."></textarea>
+    </div>
+
+    <!-- 4. Deep Analysis -->
+    <div id="comparison" class="panel-box">
+      <div id="line-diff-container">
+        <h3>Line Level</h3>
+        <div id="line-diff" class="diff-box"></div>
+      </div>
+      <div id="word-diff-container">
+        <h3>Word Level</h3>
+        <div id="word-diff" class="diff-box"></div>
+      </div>
+      <div id="char-diff-container">
+        <h3>Char Level</h3>
+        <div id="char-diff" class="diff-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const text1Element = document.getElementById('text1');
+    const text2Element = document.getElementById('text2');
+    const filenameInput = document.getElementById('patch-filename');
+    
+    const diffContainerElement = document.getElementById('diff-container');
+    const diffWrapper = document.getElementById('diff-wrapper');
+    
+    const customOutput = document.getElementById('custom-diff-output');
+    const patchOutput = document.getElementById('patch-output');
+    const terminalOutput = document.getElementById('terminal-output');
+    
+    const button = document.querySelector('.big_go_button');
+
+    let debounceTimeout;
+    function debounce(func, wait) {
+      clearTimeout(debounceTimeout);
+      debounceTimeout = setTimeout(func, wait);
+    }
+
+    // Copy to Clipboard utility function
+    function copyText(elementId, btnElement) {
+      const el = document.getElementById(elementId);
+      el.select();
+      document.execCommand('copy');
+      
+      const originalText = btnElement.textContent;
+      btnElement.textContent = "COPIED!";
+      btnElement.style.backgroundColor = "var(--neon-pink)";
+      btnElement.style.color = "#000";
+      
+      setTimeout(() => {
+        btnElement.textContent = originalText;
+        btnElement.style.backgroundColor = "";
+        btnElement.style.color = "";
+      }, 2000);
+    }
+
+    // MAIN DIFF FUNCTION
+    function updateAllDiffs() {
+      const text1 = text1Element.value;
+      const text2 = text2Element.value;
+      const filename = filenameInput.value.trim() || 'file.js';
+
+      if (!window.Diff) return;
+
+      // 1. GENERATE UNIFIED PATCH
+      const patchData = Diff.createTwoFilesPatch(filename, filename, text1, text2, 'Original', 'Modified', { ignoreWhitespace: true });
+      patchOutput.value = patchData;
+
+      // 2. GENERATE TERMINAL COMMAND
+      const safePatchData = patchData.replace(/'/g, "'\\''"); // Escape single quotes safely for bash
+      const terminalCmd = `cat << 'EOF' > update_${filename}.patch\n${patchData}\nEOF\n\npatch ${filename} < update_${filename}.patch`;
+      terminalOutput.value = terminalCmd;
+
+      // 3. GENERATE DIFF2HTML UI
+      const configuration = {
+        drawFileList: false,
+        matching: 'lines',
+        outputFormat: 'side-by-side',
+        highlight: true,
+        renderNothingWhenEmpty: false
+      };
+      try {
+        const diff2htmlUi = new Diff2HtmlUI(diffContainerElement, patchData, configuration);
+        diff2htmlUi.draw();
+        diff2htmlUi.highlightCode();
+      } catch (e) {
+        console.warn("Diff2Html rendering error:", e);
+      }
+
+      // 4. GENERATE CUSTOM INLINE FORMAT
+      generateCustomExport(text1, text2);
+
+      // 5. RUN GRANULAR DIFFS
+      compareText(text1, text2);
+    }
+
+    // CUSTOM EXPORT
+    function generateCustomExport(text1, text2) {
+      const chunks = Diff.diffLines(text1, text2, { ignoreWhitespace: true });
+      let out =[];
+      let lineNum = 1;
+
+      for (let i = 0; i < chunks.length; i++) {
+        let chunk = chunks[i];
+        
+        let lines = chunk.value.split('\n');
+        if (lines.length > 0 && lines[lines.length - 1] === '') lines.pop();
+        if (lines.length === 0) continue;
+
+        if (chunk.removed) {
+          let startLine = lineNum;
+          let endLine = lineNum + lines.length - 1;
+          
+          if (lines.length === 1) {
+            out.push(`// # removed on line: ${startLine}  // ${lines[0]}`);
+          } else {
+            out.push(`// # removed on line: ${startLine} to ${endLine} // OLD_CODE_START `);
+            for (let ln of lines) out.push(`// # // ${ln}`);
+            out.push(`// # // OLD_CODE_END_ `);
+          }
+          lineNum += lines.length; 
+        } else if (chunk.added) {
+          for (let ln of lines) out.push(ln);
+        } else {
+          for (let ln of lines) out.push(ln);
+          lineNum += lines.length;
+        }
+      }
+      customOutput.value = out.join('\n');
+    }
+
+    // GRANULAR DIFFS
+    function compareText(text1, text2) {
+      const isHugeText = Math.max(text1.length, text2.length) > 8000;
+
+      function createDiffFragment(diffArray, targetId) {
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < diffArray.length; i++) {
+          const node = document.createElement('span');
+          node.textContent = diffArray[i].value;
+          
+          if (diffArray[i].added) {
+            node.style.color = '#00ffcc'; node.style.fontWeight = 'bold'; node.style.textShadow = '0 0 5px rgba(0,255,204,0.5)';
+          } else if (diffArray[i].removed) {
+            node.style.color = '#ff1493'; node.style.textDecoration = 'line-through';
+          } else {
+            node.style.color = '#a0a0a0'; 
+          }
+          fragment.appendChild(node);
+        }
+        document.getElementById(targetId).innerHTML = '';
+        document.getElementById(targetId).appendChild(fragment);
+      }
+
+      createDiffFragment(Diff.diffLines(text1, text2, { ignoreWhitespace: true }), 'line-diff');
+
+      if (isHugeText) {
+        document.getElementById('word-diff').innerHTML = `
+          <span style="color:#ff1493">File > 8000 chars. Auto-diff skipped.</span>
+          <button id="force-word-diff" class="btn-copy" style="float:none; margin-top:10px;">DO WORD DIFF</button>`;
+        document.getElementById('force-word-diff').onclick = function() {
+          this.textContent = "CALCULATING...";
+          setTimeout(() => { createDiffFragment(Diff.diffWords(text1, text2), 'word-diff'); }, 50);
+        };
+
+        document.getElementById('char-diff').innerHTML = `
+          <span style="color:#ff1493">File > 8000 chars. Auto-diff skipped.</span>
+          <button id="force-char-diff" class="btn-copy" style="float:none; margin-top:10px;">DO CHAR DIFF</button>`;
+        document.getElementById('force-char-diff').onclick = function() {
+          this.textContent = "CALCULATING...";
+          setTimeout(() => { createDiffFragment(Diff.diffChars(text1, text2), 'char-diff'); }, 50);
+        };
+      } else {
+        createDiffFragment(Diff.diffWords(text1, text2), 'word-diff');
+        createDiffFragment(Diff.diffChars(text1, text2), 'char-diff');
+      }
+    }
+
+    // GO BUTTON LOGIC
+    button.addEventListener('click', function () {
+      button.textContent = "WAIT...";
+      button.style.backgroundColor = "#ff1493";
+      button.style.color = "#000";
+
+      setTimeout(() => {
+        button.style.display = 'none'; 
+        diffWrapper.style.display = 'block'; 
+        void diffWrapper.offsetWidth; 
+        diffWrapper.style.opacity = 1;
+
+        updateAllDiffs();
+
+        // Bind reactive updates
+        text1Element.addEventListener('input', () => debounce(updateAllDiffs, 500));
+        text2Element.addEventListener('input', () => debounce(updateAllDiffs, 500));
+        filenameInput.addEventListener('input', () => debounce(updateAllDiffs, 500));
+      }, 50);
+    });
+
+  </script>
+</body>
+</html>
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
@@ -12,4 +531,4 @@
     <h1>Redirecting...</h1>
     
 </body>
-</html>
+</html>-->
